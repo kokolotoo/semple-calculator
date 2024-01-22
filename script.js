@@ -7,9 +7,20 @@ function clearDisplay() {
 }
  
 function calculateResult() {
- const result = eval(document.getElementById('display').value);
- document.getElementById('display').value = result;
-}
+    const inputField = document.getElementById('display');
+    const expression = inputField.value;
+  
+    try {
+      const result = new Function('return ' + expression)();
+      if (Number.isInteger(result)) {
+         inputField.value = result.toString();
+      } else {
+         inputField.value = result.toFixed(2);
+      }
+    } catch (error) {
+     inputField.value = 'Error';
+    }
+  }
      
 document.addEventListener("DOMContentLoaded", function() {
   // При зареждане на страницата по подразбиране, правим всички бутон с клас "inactive" неактивни
